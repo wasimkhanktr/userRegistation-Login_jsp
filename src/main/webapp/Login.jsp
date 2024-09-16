@@ -9,6 +9,19 @@
 <body>
     <div class="login-container">
         <h1>Login</h1>
+
+        <!-- Display error message if it exists -->
+        <%
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+        %>
+            <div style="color: red;">
+                <%= errorMessage %>
+            </div>
+        <%
+            }
+        %>
+
         <form action="login" method="post">
             <div class="input-group">
                 <label for="email">Email:</label>
@@ -19,7 +32,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="input-group">
-                <button type="submit" class="login-btn">Login</button>
+                <input type="submit" class="login" value="Login">
             </div>
         </form>
         <p>Don't have an account? <a href="Register.jsp">Register Here</a></p>
