@@ -2,11 +2,13 @@ package techzn.regsterLogin.jsp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,7 @@ public class RegisterServlet extends HttpServlet {
 
         Connection con = null;
         PreparedStatement ps = null;
+        RequestDispatcher rd=null;
         
         out.println("<h1>" + fullName + " " + email + "</h1>");
 
@@ -57,16 +60,19 @@ public class RegisterServlet extends HttpServlet {
             int count = ps.executeUpdate();
 
             if (count == 1) {
+//            	req.getRequestDispatcher("Login.jsp").forward(req, resp);
+            	response.sendRedirect("Login.jsp");
+
+
                 out.println("<h1>Registration Successful!</h1>");
+      
             } else {
                 out.println("<h1>Registration Failed!</h1>");
             }
 
         } catch (ClassNotFoundException e) {
-            out.println("<h1>JDBC Driver Not Found</h1>");
             e.printStackTrace();
         } catch (SQLException e) {
-            out.println("<h1>JDBC Connection Failed</h1>");
             e.printStackTrace();
         } finally {
             // Close resources

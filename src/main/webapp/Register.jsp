@@ -64,5 +64,11 @@
             </tr>
         </table>
     </form>
+
+    <!-- Add login button below the form -->
+    <div class="login-redirect">
+        <p>Already have an account? <a href="login.jsp">Login Here</a></p>
+    </div>
+
 </body>
 </html>
