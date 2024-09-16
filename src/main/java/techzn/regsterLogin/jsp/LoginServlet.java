@@ -2,6 +2,7 @@ package techzn.regsterLogin.jsp;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,27 +18,33 @@ import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         // Perform database validation for email and password here
+        String fullname = getFullname(email, password);
 
-        if (isValidUser(email, password)) {
-        	 // If valid, create a session and redirect to welcome page
+        if (fullname != null) {
+        	 // If valid, create a session and store the full name
             HttpSession session = request.getSession();
-            session.setAttribute("fullname", "John Doe");  // Placeholder for actual user name
+            session.setAttribute("fullname", fullname);  // Store full name in session
 
-            // Redirect to welcome page
-            response.sendRedirect("welcome.jsp");
+            
+            RequestDispatcher rd=request.getRequestDispatcher("welcome.jsp");
+            rd.include(request, response);
+            
+            
         } else {
             response.sendRedirect("Login.jsp?error=Invalid email or password");
         }
     }
 
-    private boolean isValidUser(String email, String password) {
-        boolean isValid = false;
+    // Method to check if the user is valid and retrieve the full name
+    private String getFullname(String email, String password) {
+        String fullname = null;
         
         // Database connection parameters
         String jdbcURL = "jdbc:mysql://localhost:3306/mydb";
@@ -45,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         String jdbcPassword = "root";
         
         // SQL query to validate email and password
-        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String sql = "SELECT fullname FROM user WHERE email = ? AND password = ?";
 
         try {
             // Load the JDBC driver
@@ -64,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 
             // Check if a user exists with the provided email and password
             if (resultSet.next()) {
-                isValid = true;  // User found, valid credentials
+                fullname = resultSet.getString("fullname");  // Retrieve the full name of the user
             }
 
             // Close the resources
@@ -77,7 +84,6 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        return isValid;
+        return fullname;  // Return the full name if user is valid, else null
     }
-
 }

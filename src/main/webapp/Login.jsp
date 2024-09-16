@@ -22,7 +22,7 @@
                 <button type="submit" class="login-btn">Login</button>
             </div>
         </form>
-        <p>Don't have an account? <a href="register.jsp">Register Here</a></p>
+        <p>Don't have an account? <a href="Register.jsp">Register Here</a></p>
     </div>
 </body>
 </html>

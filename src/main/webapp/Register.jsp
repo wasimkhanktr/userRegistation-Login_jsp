@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="./register.css">
 </head>
 <body>
-    <h1>User Registration Form</h1>
+    
     
     <form action="register" method="post">
+    <h1>User Registration Form</h1>
         <table>
             <tr>
                 <td>Full Name:</td>
@@ -63,12 +64,15 @@
                 <td><input type="submit" value="Register"></td>
             </tr>
         </table>
+        
+        <!-- Add login button below the form -->
+    <div class="login-redirect">
+        <p>Already have an account? <a href="Login.jsp">Login Here</a></p>
+    </div>
+    
     </form>
 
-    <!-- Add login button below the form -->
-    <div class="login-redirect">
-        <p>Already have an account? <a href="login.jsp">Login Here</a></p>
-    </div>
+    
 
 </body>
 </html>

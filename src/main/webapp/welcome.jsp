@@ -38,10 +38,13 @@
 <body>
 
     <div class="container">
-        <h1>Welcome, <%= request.getParameter("fullname") %>!</h1>
+    
+    	
+        <h1>Welcome, <%= session.getAttribute("fullname") %>!</h1>
+
         <p>We are glad to see you here.</p>
 
-        <a href="login.jsp" class="logout">Logout</a>
+        <a href="Login.jsp" class="logout">Logout</a>
     </div>
 
 </body>
